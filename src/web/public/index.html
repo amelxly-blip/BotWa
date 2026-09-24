@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCHLERN PANEL WA</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --surface-color: #111111;
+            --border-color: #333333;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent: #ffffff;
+        }
+        body { 
+            font-family: 'Courier New', Courier, monospace; /* Elegant monospace feel */
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Fixed Top Navbar */
+        .topbar {
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            z-index: 100;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ascii-logo {
+            font-size: 12px;
+            line-height: 1.2;
+            white-space: pre;
+            color: var(--text-main);
+            text-align: center;
+            margin: 0;
+        }
+        
+        /* Main Layout Below Topbar */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar { 
+            width: 250px; 
+            background-color: var(--bg-color); 
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0; 
+            box-sizing: border-box; 
+            overflow-y: auto;
+        }
+        .nav-item { 
+            padding: 15px 25px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .nav-item:hover, .nav-item.active { 
+            background-color: var(--surface-color); 
+            color: var(--text-main); 
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Main Content Area */
+        .main-content { 
+            flex: 1; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            overflow-y: auto; 
+            background-color: var(--bg-color);
+        }
+        h2 { 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: normal;
+        }
+        .card { 
+            background-color: var(--surface-color); 
+            padding: 25px; 
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px; 
+        }
+        .hidden { display: none; }
+        
+        img#qr-image { 
+            max-width: 250px; 
+            border: 1px solid var(--border-color); 
+            padding: 10px;
+            background: #fff; /* QR must have white bg to be scannable */
+        }
+        
+        /* Tables & Inputs */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { color: var(--text-muted); text-transform: uppercase; font-weight: normal; letter-spacing: 1px; }
+        
+        button { 
+            background-color: transparent; 
+            color: var(--text-main); 
+            border: 1px solid var(--text-main); 
+            padding: 8px 20px; 
+            cursor: pointer; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        button:hover { background-color: var(--text-main); color: var(--bg-color); }
+        
+        .btn-danger { border-color: #ff3333; color: #ff3333; }
+        .btn-danger:hover { background-color: #ff3333; color: var(--bg-color); }
+        
+        input[type="text"], input[type="number"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0 20px; 
+            border: 1px solid var(--border-color); 
+            background: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        input:focus { outline: none; border-color: var(--text-main); }
+        label { text-transform: uppercase; font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Top Navbar -->
+    <div class="topbar">
+<pre class="ascii-logo">
+ __  __  ____ _   _ _     _____ ____  _   _    ____   _    _   _ _____ _     
+|  \/  |/ ___| | | | |   | ____|  _ \| \ | |  |  _ \ / \  | \ | | ____| |    
+| |\/| | |   | |_| | |   |  _| | |_) |  \| |  | |_) / _ \ |  \| |  _| | |    
+| |  | | |___|  _  | |___| |___|  _ <| |\  |  |  __/ ___ \| |\  | |___| |___ 
+|_|  |_|\____|_| |_|_____|_____|_| \_\_| \_|  |_| /_/   \_\_| \_|_____|_____|
+</pre>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="nav-item active" onclick="showTab('dashboard')">1. QR Pairing</div>
+            <div class="nav-item" onclick="showTab('rentals')">2. Group Rentals</div>
+            <div class="nav-item" onclick="showTab('settings')">3. Bot Settings</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard / QR -->
+            <div id="dashboard" class="tab-content">
+                <h2>Connection Status</h2>
+                <div class="card">
+                    <p style="text-transform: uppercase; letter-spacing: 1px;">Status: <span id="conn-status" style="font-weight: bold;">CHECKING...</span></p>
+                    <div id="qr-container" class="hidden" style="margin-top: 20px;">
+                        <p>SCAN THIS QR CODE TO LINK WHATSAPP:</p>
+                        <img id="qr-image" src="" alt="QR Code">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rentals -->
+            <div id="rentals" class="tab-content hidden">
+                <h2>Manage Rentals</h2>
+                <div class="card">
+                    <label>Group Invite Link</label>
+                    <input type="text" id="rental-link" placeholder="https://chat.whatsapp.com/...">
+                    
+                    <label>Duration (Days)</label>
+                    <input type="number" id="rental-days" placeholder="7">
+                    
+                    <button onclick="addRental()">Add Rental</button>
+                </div>
+                
+                <div class="card" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Group Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rental-list">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div id="settings" class="tab-content hidden">
+                <h2>Bot Settings</h2>
+                <div class="card">
+                    <p>SYSTEM ASSETS UPLOAD</p>
+                    <label>Select Image File (Menu/Welcome/Goodbye)</label>
+                    <br><br>
+                    <input type="file" id="upload-file" style="color: var(--text-main);">
+                    <br><br>
+                    <button>Upload File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
