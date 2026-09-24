@@ -15,7 +15,9 @@ let sock;
 let qrCodeUrl = '';
 let isConnected = false;
 
-const sessionPath = path.join(__dirname, '..', '..', 'storage', 'sessions', process.env.SESSION_NAME || 'session');
+// Lokal: ./storage | Railway: /data (sesuai Volume mount path)
+const BASE_STORAGE = process.env.STORAGE_PATH || path.join(__dirname, '..', '..', 'storage');
+const sessionPath = path.join(BASE_STORAGE, 'sessions', process.env.SESSION_NAME || 'session');
 
 async function connectToWhatsApp() {
     // Pastikan folder session ada

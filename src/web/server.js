@@ -7,7 +7,9 @@ const { getQR, getSock, resetSession } = require('../bot/connection');
 const { db } = require('../database/db');
 
 // Setup multer for image uploads
-const storageDir = path.join(__dirname, '..', '..', 'storage', 'images');
+// Lokal: ./storage | Railway: /data (sesuai Volume mount path)
+const BASE_STORAGE = process.env.STORAGE_PATH || path.join(__dirname, '..', '..', 'storage');
+const storageDir = path.join(BASE_STORAGE, 'images');
 if (!fs.existsSync(storageDir)) fs.mkdirSync(storageDir, { recursive: true });
 
 const upload = multer({

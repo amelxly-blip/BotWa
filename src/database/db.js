@@ -2,7 +2,10 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-const dbDir = path.join(__dirname, '..', '..', 'storage', 'database');
+// Lokal: ./storage | Railway: /data (sesuai Volume mount path)
+const BASE_STORAGE = process.env.STORAGE_PATH || path.join(__dirname, '..', '..', 'storage');
+const dbDir = path.join(BASE_STORAGE, 'database');
+
 if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
 }
