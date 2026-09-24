@@ -9,7 +9,16 @@ const { db } = require('../database/db');
 
 async function handleMessage(sock, msg) {
     try {
-        const messageContent = msg.message.conversation || msg.message.extendedTextMessage?.text || msg.message.imageMessage?.caption || "";
+        // Robust message extraction
+        let messageContent = "";
+        if (msg.message) {
+            if (msg.message.conversation) messageContent = msg.message.conversation;
+            else if (msg.message.extendedTextMessage?.text) messageContent = msg.message.extendedTextMessage.text;
+            else if (msg.message.imageMessage?.caption) messageContent = msg.message.imageMessage.caption;
+            else if (msg.message.ephemeralMessage?.message?.conversation) messageContent = msg.message.ephemeralMessage.message.conversation;
+            else if (msg.message.ephemeralMessage?.message?.extendedTextMessage?.text) messageContent = msg.message.ephemeralMessage.message.extendedTextMessage.text;
+        }
+
         const sender = msg.key.remoteJid;
         const participant = msg.key.participant || sender; // For groups
         const isGroup = sender.endsWith('@g.us');

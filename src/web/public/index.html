@@ -172,6 +172,10 @@
                         <p>SCAN THIS QR CODE TO LINK WHATSAPP:</p>
                         <img id="qr-image" src="" alt="QR Code">
                     </div>
+                    <div style="margin-top: 20px;">
+                        <button onclick="resetSession()" class="btn-danger">GENERATE NEW CODE (LOGOUT)</button>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">Use this if bot is banned or you want to change the bot's number.</p>
+                    </div>
                 </div>
             </div>
 
@@ -208,13 +212,38 @@
             <!-- Settings -->
             <div id="settings" class="tab-content hidden">
                 <h2>Bot Settings</h2>
+
                 <div class="card">
-                    <p>SYSTEM ASSETS UPLOAD</p>
-                    <label>Select Image File (Menu/Welcome/Goodbye)</label>
+                    <p>MENU IMAGE</p>
+                    <label>Used when user runs .menu</label>
                     <br><br>
-                    <input type="file" id="upload-file" style="color: var(--text-main);">
+                    <input type="file" id="upload-menu" accept="image/*" style="color: var(--text-main); margin-bottom: 10px;">
+                    <br>
+                    <button onclick="uploadImage('menu')">UPLOAD MENU IMAGE</button>
                     <br><br>
-                    <button>Upload File</button>
+                    <img id="preview-menu" class="hidden" style="max-width:300px; border:1px solid #333; margin-top:10px;" alt="Menu Preview">
+                </div>
+
+                <div class="card">
+                    <p>WELCOME IMAGE</p>
+                    <label>Sent when a new member joins the group</label>
+                    <br><br>
+                    <input type="file" id="upload-welcome" accept="image/*" style="color: var(--text-main); margin-bottom: 10px;">
+                    <br>
+                    <button onclick="uploadImage('welcome')">UPLOAD WELCOME IMAGE</button>
+                    <br><br>
+                    <img id="preview-welcome" class="hidden" style="max-width:300px; border:1px solid #333; margin-top:10px;" alt="Welcome Preview">
+                </div>
+
+                <div class="card">
+                    <p>GOODBYE IMAGE</p>
+                    <label>Sent when a member leaves the group</label>
+                    <br><br>
+                    <input type="file" id="upload-goodbye" accept="image/*" style="color: var(--text-main); margin-bottom: 10px;">
+                    <br>
+                    <button onclick="uploadImage('goodbye')">UPLOAD GOODBYE IMAGE</button>
+                    <br><br>
+                    <img id="preview-goodbye" class="hidden" style="max-width:300px; border:1px solid #333; margin-top:10px;" alt="Goodbye Preview">
                 </div>
             </div>
         </div>
